@@ -6,10 +6,11 @@ var Photo = function(fileLocation) {
   //constructor
 
   this.path = fileLocation;
-  this.votes = 1;
-  this.index = //where it lives in  photoArray?
+  this.votes = 0;
+  this.index = photoArray;//where it lives in  photoArray?
 
 };
+
 photoArray.push(new Photo('img/kitten1.jpg'));
 photoArray.push(new Photo('img/kitten2.jpg'));
 photoArray.push(new Photo('img/kitten3.jpg'));
@@ -25,19 +26,49 @@ photoArray.push(new Photo('img/kitten12.jpg'));
 photoArray.push(new Photo('img/kitten13.jpg'));
 photoArray.push(new Photo('img/kitten14.jpg'));
 
-//etc
+var leftVotes;
+var rightVotes;
+
+var ctx = document.getElementById("myChart").getContext("2d");
+console.dir(Chart)
+var myNewChart = new Chart(ctx).Doughnut([{value: leftVotes, color: 'red'}, {value: rightVotes, color: 'green'}]);
+console.dir(Chart);
+
 
 var Tracker = function() {
-this.leftPhoto = this.getRandomInt();
-this.rightPhoto = this.getRandomInt();
-
+this.leftPhoto = '';
+this.rightPhoto = '';
 };
+var tracker = new Tracker();
 
 Photo.prototype.highlight = function() {
 //highlight the photo after it is clicked
+//Does this need JS functionality? Can it be done with just css????
 };
 
 Tracker.prototype.waitingForVote = function() {
+  left.addEventListener("click", function(e) {
+  var targetSrc = e.target.src.slice(44, 100)
+    console.log('left was clicked')
+    photoArray.forEach(function(val) {
+      if(val.path === targetSrc) {
+        val.votes ++;
+      }
+      leftVotes = val.votes;
+    })
+    // this.displayPhotos();
+  });
+  right.addEventListener("click", function(e) {
+  var targetSrc = e.target.src.slice(44, 100)
+    console.log('right was clicked')
+    photoArray.forEach(function(val) {
+      if(val.path === targetSrc) {
+        val.votes ++;
+      }
+      rightVotes = val.votes;
+    })
+    // this.displayPhotos();
+  });
   //receive the click
   //increment the vote count
   //event listener on each photo
@@ -48,23 +79,29 @@ Tracker.prototype.waitingForVote = function() {
 //receiveVote()
 
 Tracker.prototype.getRandomInt = function() {
-  var random = (Math.floor(Math.random() * 14) );
-  console.log(random)
+  return(Math.floor(Math.random() * 14) );
+  // console.log(random)
 //generate a random number to select an image from img folder
-    photoArray[random].displayPhotos();
-
-
+  // photoArray[random].displayPhotos();
 };
 
 
 Tracker.prototype.displayPhotos = function() {
   //display the randomly selected photo
   // prevent picking same photo twice
+  this.leftPhoto = photoArray[this.getRandomInt()];
+  this.rightPhoto = photoArray[this.getRandomInt()];
   while (this.leftPhoto == this.rightPhoto) {
     this.rightPhoto = this.getRandomInt();
   }
+  var left = document.getElementById("left");
+  left.innerHTML = '<img src = "img/kitten10.jpg">'
+  var right = document.getElementById("right");
+  right.innerHTML = '<img src = "img/kitten13.jpg">'
 };
-Tracker();
+
+tracker.displayPhotos();
+tracker.waitingForVote();
 
 
 
