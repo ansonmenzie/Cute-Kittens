@@ -1,0 +1,35 @@
+h1 {
+  font-size: 2em;
+  text-align: center;
+}
+
+p {
+  font-size: 1.3em;
+  text-align: center;
+  margin-bottom: 5em;
+}
+
+#left {
+  position: fixed;
+  top: 15em;
+  left: 10em;
+}
+
+#right {
+  position: fixed;
+  top: 15em;
+  right: 10em;
+}
+
+button {
+  position: fixed;
+  left: 60em;
+  top: 50em;
+  background-size: 10em;
+}
+
+canvas {
+  position: fixed;
+  left: 35.5em;
+  top: 13.5em;
+}
