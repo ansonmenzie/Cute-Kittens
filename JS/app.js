@@ -1,109 +1,87 @@
-'use strict';
 
 $(document).ready(function() {
 
+  var Photo = function(url) {
+    this.picUrl = url;
+    this.votes = 0;
+  };
+
   var photoArray = [];
 
-  var Photo = function(fileLocation) {
-    //constructor
+  $.ajax({
+    url: "https://api.imgur.com/3/album/DDoWy",
+    headers:{
+      "Authorization": "Client-ID b73d808e6845225"
+      }
+    })
 
-    this.path = fileLocation;
-    this.votes = 0;
+    .done(function(res) {
+      var images = res.data.images;
+      for (i = 0; i < images.length; i++) {
+        photoArray.push(new Photo(images[i].link));
+      };
+      displayPhotos();
+    });
 
-  };
+    var displayPhotos = function() {
+     var randIndex1 = Math.floor(Math.random() * photoArray.length);
+     var randIndex2 = Math.floor(Math.random() * photoArray.length);
+     console.log(randIndex1 + "  " + randIndex2);
+     while (randIndex1 === randIndex2) {
+       randIndex2 = Math.floor(Math.random() * photoArray.length - 1);
+     }
 
-  photoArray.push(new Photo('img/kitten1.jpg'));
-  photoArray.push(new Photo('img/kitten2.jpg'));
-  photoArray.push(new Photo('img/kitten3.jpg'));
-  photoArray.push(new Photo('img/kitten4.jpg'));
-  photoArray.push(new Photo('img/kitten5.jpg'));
-  photoArray.push(new Photo('img/kitten6.jpg'));
-  photoArray.push(new Photo('img/kitten7.jpg'));
-  photoArray.push(new Photo('img/kitten8.jpg'));
-  photoArray.push(new Photo('img/kitten9.jpg'));
-  photoArray.push(new Photo('img/kitten10.jpg'));
-  photoArray.push(new Photo('img/kitten11.jpg'));
-  photoArray.push(new Photo('img/kitten12.jpg'));
-  photoArray.push(new Photo('img/kitten13.jpg'));
-  photoArray.push(new Photo('img/kitten14.jpg'));
-
-  var leftVotes;
-  var rightVotes;
-
-  var Tracker = function(leftPhoto, rightPhoto) {
-    this.leftPhoto = leftPhoto;
-    this.rightPhoto = rightPhoto;
-  };
-  var tracker = new Tracker();
-
-
-  Tracker.prototype.getRandomInt = function() {
-    var random = (Math.floor(Math.random() * 14) );
-    return random;
-  //generate a random number to select an image from img folder
-    // photoArray[random].displayPhotos();
-  };
-
-  Tracker.prototype.displayPhotos = function() {
-    //display the randomly selected photo
-    // prevent picking same photo twice
-    this.leftPhoto = photoArray[this.getRandomInt()];
-    this.rightPhoto = photoArray[this.getRandomInt()];
-    while (this.leftPhoto == this.rightPhoto) {
-      this.rightPhoto = photoArray[this.getRandomInt()];
+    $('#kit1').attr('src', photoArray[randIndex1].picUrl);
+    $('#kit2').attr('src', photoArray[randIndex2].picUrl);
     }
 
-    var left = $('#left')[0];
-    var right = $('#right')[0];
-    // var left = document.getElementById("left");
-    // var right = document.getElementById("right");
-    var leftContent = '<img src = "' + this.leftPhoto.path + '" />';
-    var rightContent = '<img src = "' + this.rightPhoto.path + '" />';
-    left.innerHTML = leftContent;
-    right.innerHTML = rightContent;
-    highlight();
 
-  };
+    var voteL = 0;
+    $('#kit1').on('click', function(e){
+    voteL ++;
+    console.log(voteL);
+    $('#kit1').css({'border': '10px solid #F21905'});
+    $('#kit2').attr('src', photoArray[this.randIndex2]);
 
-   var ctx = $("#myChart").get(0).getContext("2d");
+   });
+
+    var voteR = 0;
+    $('#kit2').on('click', function(e){
+    voteR ++;
+    console.log(voteR);
+    $('#kit2').css({'border': '10px solid #F21905'});
+    $('#kit1').attr('src', photoArray[this.randIndex1]);
+
+  });
+
+    var ctx = $("#myChart").get(0).getContext("2d");
   var myDoughnutChart = new Chart(ctx).Doughnut(data);
   var data = [
     {
         value: 1,
-        color:"#F7464A",
+        color: "#F7464A",
         highlight: "#FF5A5E",
-        label: "Right Kitty"
+        label: "meow"
     },
     {
         value: 1,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "left Kitty"
+        label: "purrr"
     }
   ]
   var myDoughnutChart = new Chart(ctx).Doughnut(data);
 
-  Tracker.prototype.addVote = function() {
-    var index = photoArray[this.getRandomInt()];
-    photoArray[index]++;
-  };
 
-  $('button').click(function(){
-    tracker.addVote($('.highlight').attr('src'));
-    $('button').css({'visibility':'hidden'});
-    tracker.displayPhotos();
-  });
+    $('#button').on('click', function() {
+      displayPhotos();
+    $('#kit2').css({'border': ''});
+    $('#kit1').css({'border': ''});
 
-  var highlight = function(){
-    $('div').click(function(){
-      $('button').css({'visibility':'visible'});
-      $('.highlight').removeClass('highlight');
-      $(this).toggleClass('highlight');
-    });
+  })
 
-  tracker.displayPhotos();
-  tracker.addVote();
-  };
 
 });
+
+
 
