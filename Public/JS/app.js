@@ -42,8 +42,7 @@ $(document).ready(function() {
     console.log(voteL);
     $('#kit1').css({'border': '10px solid #F21905'});
     $('#kit2').attr('src', photoArray[this.randIndex2]);
-
-   });
+    });
 
     var voteR = 0;
     $('#kit2').on('click', function(e){
@@ -51,26 +50,27 @@ $(document).ready(function() {
     console.log(voteR);
     $('#kit2').css({'border': '10px solid #F21905'});
     $('#kit1').attr('src', photoArray[this.randIndex1]);
-
-  });
+    });
 
     var ctx = $("#myChart").get(0).getContext("2d");
-  var myDoughnutChart = new Chart(ctx).Doughnut(data);
-  var data = [
-    {
+    var myDoughnutChart = new Chart(ctx).Doughnut(data);
+    var data = [
+      {
         value: 1,
         color: "#F7464A",
         highlight: "#FF5A5E",
         label: "meow"
-    },
-    {
+      },
+      {
         value: 1,
         color: "#46BFBD",
         highlight: "#5AD3D1",
         label: "purrr"
-    }
-  ]
-  var myDoughnutChart = new Chart(ctx).Doughnut(data);
+      }
+    ]
+
+  new Chart(ctx).Doughnut(data);
+
 
 
     $('#button').on('click', function() {
