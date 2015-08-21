@@ -1,0 +1,25 @@
+{
+  "name": "cute_kittens",
+  "version": "1.0.0",
+  "description": "kitten vote tracking game",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \\\"Error: no test specified\\\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ansonmenzie/Cute-Kittens.git"
+  },
+  "keywords": [
+    "kittens"
+  ],
+  "author": "Anson Menzie",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ansonmenzie/Cute-Kittens/issues"
+  },
+  "homepage": "https://github.com/ansonmenzie/Cute-Kittens#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
