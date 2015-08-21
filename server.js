@@ -9,9 +9,9 @@ app.get('/secret', function(request, response) {
   response.send('Look no further feller, you found him!');
 })
 
-app.use(function(request, response, next) {
-  response.status(404).sendFile(__dirname + '/public/404.html');
-});
+// app.use(function(request, response, next) {
+//   response.status(404).sendFile(__dirname + '/public/404.html');
+// });
 
 app.listen(app.get('port'), function() {
   console.log('Node app is running at localhost:' + app.get('port'));
