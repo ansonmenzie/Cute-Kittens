@@ -5,7 +5,12 @@ app.set('port', (process.env.PORT || 5000));
 
 app.use(express.static(__dirname + '/public'));
 
-app.get('/secret', function(request, response) {
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+
+app.get('/', function(request, response) {
+  response.render('pages/index');
+//app.get('/secret', function(request, response) {
   response.send('Look no further feller, you found him!');
 })
 
