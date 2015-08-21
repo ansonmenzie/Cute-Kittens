@@ -40,6 +40,7 @@ $(document).ready(function() {
     $('#kit1').on('click', function(e){
     voteL ++;
     console.log(voteL);
+    voteL = this.voteL;
     $('#kit1').css({'border': '10px solid #F21905'});
     $('#kit2').attr('src', photoArray[this.randIndex2]);
     });
@@ -48,6 +49,7 @@ $(document).ready(function() {
     $('#kit2').on('click', function(e){
     voteR ++;
     console.log(voteR);
+    voteR = this.voteR;
     $('#kit2').css({'border': '10px solid #F21905'});
     $('#kit1').attr('src', photoArray[this.randIndex1]);
     });
@@ -59,17 +61,17 @@ $(document).ready(function() {
         value: 1,
         color: "#F7464A",
         highlight: "#FF5A5E",
-        label: "meow"
+        label: voteR
       },
       {
         value: 1,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "purrr"
+        label: voteL
       }
     ]
 
-  new Chart(ctx).Doughnut(data);
+    new Chart(ctx).Doughnut(data);
 
 
 
@@ -77,6 +79,7 @@ $(document).ready(function() {
       displayPhotos();
     $('#kit2').css({'border': ''});
     $('#kit1').css({'border': ''});
+    new Chart(ctx).Doughnut(data);
 
   })
 
